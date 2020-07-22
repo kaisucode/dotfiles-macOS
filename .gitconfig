@@ -1,0 +1,15 @@
+[user]
+	name = Kevin Hsu
+	email = kevin.hsukaihao@gmail.com
+[core]
+	editor = nvim
+	excludesfile = ~/.gitignore_global
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[pull]
+	rebase = false
+[credential]
+	helper = osxkeychain
