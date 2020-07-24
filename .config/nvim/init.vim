@@ -1,9 +1,9 @@
 
 " Temporary handicap
-" noremap <Up> <Nop>
-" noremap <Down> <Nop>
-" noremap <Left> <Nop>
-" noremap <Right> <Nop>
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
 
 set linebreak
 
@@ -85,9 +85,10 @@ nmap <F8> b"qcw(<esc>"qp
 "Transparent background, no matter the color scheme"
 
 colorscheme evening
-" colorscheme diary
-" colorscheme elflord
-hi Normal guibg=NONE ctermbg=NONE	
+" colorscheme deus_ex
+
+hi Normal ctermbg=NONE	
+hi Visual ctermfg=LightYellow ctermbg=black
 hi LineNr ctermfg=141 ctermbg=NONE
 hi SignColumn ctermbg=NONE
 " SignColumn is the gitgutter panel
@@ -136,8 +137,9 @@ endfunction
 " 2: always
 
 "-------------Buffers--------------"
+
 " Open new empty tab
-nmap <Leader>t :enew<cr>
+nmap <Leader>t :enew<bar>:Startify<cr>
 
 " Move to the next buffer
 nmap <leader>f :bnext<CR>

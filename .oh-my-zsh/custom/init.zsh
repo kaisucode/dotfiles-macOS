@@ -1,8 +1,6 @@
 
-ZSH_THEME="garyblessington"
-# ZSH_THEME="lena"
-
-
+# ZSH_THEME="garyblessington"
+ZSH_THEME="dracula"
 
 # Cursors
 echo -e -n "\x1b[\x30 q" # changes to blinking block

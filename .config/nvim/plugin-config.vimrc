@@ -143,12 +143,6 @@ vnoremap ˚ :m '<-2<CR>gv=gv
 
 
 "/
-"/ vim-autopep8
-"/
-let g:autopep8_disable_show_diff=1
-autocmd FileType python noremap <buffer> <F7> :call Autopep8()<CR>
-
-"/
 "/ Rainbow Parentheses
 "/
 " Changes colors of parantheses
@@ -182,13 +176,50 @@ inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 "/ 
 nnoremap <Leader><space> :FZF<CR>
 
+"/
+"/ dracula
+"/
+" colorscheme dracula
+" hi Normal ctermbg=NONE	
+" hi Visual ctermfg=LightYellow ctermbg=black
+" hi LineNr ctermfg=141 ctermbg=NONE
+" hi SignColumn ctermbg=NONE
+
+
+"/
+"/ vim-startify
+"/ 
+"
+let g:startify_custom_indices = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l']
+let g:startify_custom_header = [] 
+let g:startify_session_sort = 1
+let g:startify_files_number = 5
+let g:startify_session_persistence = 1
+
+" returns all modified files of the current git repo
+" `2>/dev/null` makes the command fail quietly, so that when we are not
+" in a git repo, the list will be empty
+function! s:gitModified()
+    let files = systemlist('git ls-files -m 2>/dev/null')
+    return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
+" same as above, but show untracked files, honouring .gitignore
+function! s:gitUntracked()
+    let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
+    return map(files, "{'line': v:val, 'path': v:val}")
+	endfunction
+let g:startify_lists = [
+			\ { 'type': 'sessions',  'header': ['   Saved sessions'] },
+			\ { 'type': 'dir',       'header': ['   Recent files (cwd)'] },
+			\ { 'type': 'files',     'header': ['   Recent files (Global)']            },
+			\ { 'type': function('s:gitModified'),  'header': ['   git modified']},
+			\ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
+			\ ]
 
 
 "-------------Auto-Commands--------------"
 "Automatically source the Vimrc file on save.
 
 autocmd! bufwritepost plugin-config.vimrc source $HOME/.config/nvim/init.vim
-
-
-
 
