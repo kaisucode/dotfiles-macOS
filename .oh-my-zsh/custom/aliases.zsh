@@ -10,10 +10,28 @@ alias la="ls -a"
 alias sl="ls"
 
 alias mkdir="mkdir -p"
-mkcdir ()
+mkcdir()
 {
 	mkdir -p -- "$1" &&
 		cd -P -- "$1"
+}
+
+# create .bak copy of file
+bak()
+{
+	for var in "$@"
+	do
+		cp "$var"{,.bak}
+	done
+}
+
+# convert markdown file to pdf
+mdpdf()
+{
+	for var in "$@"
+	do
+		pandoc "$var" -s -o "${var%.md}.pdf"
+	done
 }
 
 # fd - cd to selected directory with fzf
@@ -23,9 +41,6 @@ fd() {
                   -o -type d -print 2> /dev/null | fzf +m) &&
   cd "$dir"
 }
-
-# Custom stuff
-alias doranelle="ssh kaisu@doranelle.kevinhsu.net"
 
 # Vim
 alias vi="nvim"

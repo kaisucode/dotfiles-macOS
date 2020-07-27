@@ -81,7 +81,7 @@ let g:lightline#bufferline#unnamed      = '[No Name]'
 let g:lightline.tabline          = {'left': [['buffers']], 'right': []}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
-let g:lightline#bufferline#filename_modifier = ':t'				" Only show filename (no path)
+" let g:lightline#bufferline#filename_modifier = ':t'				" Only show filename (no path)
 
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
@@ -216,7 +216,6 @@ let g:startify_lists = [
 			\ { 'type': function('s:gitModified'),  'header': ['   git modified']},
 			\ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
 			\ ]
-
 
 "-------------Auto-Commands--------------"
 "Automatically source the Vimrc file on save.

@@ -7,8 +7,8 @@ call plug#begin()
 	Plug 'itchyny/vim-gitbranch'
 	Plug 'airblade/vim-rooter'
 	Plug 'airblade/vim-gitgutter'
-	Plug 'scrooloose/nerdcommenter'
-	Plug 'scrooloose/nerdtree'
+	Plug 'preservim/nerdcommenter'
+	Plug 'preservim/nerdtree'
 	Plug 'junegunn/goyo.vim'
 	Plug 'junegunn/rainbow_parentheses.vim'
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -27,6 +27,7 @@ call plug#begin()
 	Plug 'maxmellon/vim-jsx-pretty'
 	Plug 'wlangstroth/vim-racket'
 	Plug 'calviken/vim-gdscript3'
+	Plug 'sbdchd/neoformat'
 call plug#end()
 
 
