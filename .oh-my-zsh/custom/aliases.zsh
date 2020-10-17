@@ -30,7 +30,24 @@ mdpdf()
 {
 	for var in "$@"
 	do
-		pandoc "$var" -s -o "${var%.md}.pdf"
+		pandoc "$var" -f gfm -s -o "${var%.md}.pdf"
+	done
+}
+
+# convert markdown file to html
+mdhtml()
+{
+	for var in "$@"
+	do
+		pandoc "$var" -f gfm -s -o "${var%.md}.html"
+	done
+}
+
+mderb()
+{
+	for var in "$@"
+	do
+		pandoc "$var" -f gfm -s -o "_${var%.md}.html.erb"
 	done
 }
 
@@ -43,6 +60,7 @@ fd() {
 }
 
 # Vim
+alias v="nvim"
 alias vi="nvim"
 alias vif='nvim $(fzf)'
 alias readme="nvim README.md"
@@ -67,7 +85,7 @@ ave()
 	fi
 }
 
-alias g11="g++ --std=c++0x"
+alias g11="g++ --std=c++11"
 jrun()
 {
 	javac "${1}.java" && java "$1"
@@ -127,6 +145,13 @@ alias gpao="git push --all origin"
 
 alias quickAccess="cd $HOME/quickAccess"
 alias bookmark="nvim $HOME/Data/Entertainment/Fandoms/bookmark.txt"
+
+# alias myip="ifconfig en0 | awk '$1' == "inet" {print $2}"
+# alias myip="ifconfig en0 | awk "$1 == 'inet' {print $2}""
+myip()
+{
+	ifconfig en0 | awk '$1 == "inet" {print $2}'
+}
 
 export FZF_DEFAULT_COMMAND='ag --nocolor --ignore node_modules -g ""'
 

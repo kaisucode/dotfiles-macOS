@@ -60,6 +60,7 @@ let g:lightline = {
 	  \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
 	  \ },
 	  \ 'component_function': {
+	  \   'filename': 'MyFilename',  
 	  \   'gitbranch': 'gitbranch#name', 
 	  \   'filetype': 'MyFiletype', 
 	  \   'fileformat': 'NONE', 
@@ -67,7 +68,11 @@ let g:lightline = {
 	  \ },
 	  \ }
 function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+	return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFilename()
+	return expand('%')
 endfunction
 
 
@@ -82,6 +87,9 @@ let g:lightline.tabline          = {'left': [['buffers']], 'right': []}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type   = {'buffers': 'tabsel'}
 " let g:lightline#bufferline#filename_modifier = ':t'				" Only show filename (no path)
+" let g:lightline#bufferline#filename_modifier = ':h'				" Only show upper dir
+let g:lightline#bufferline#enable_devicons = 1
+
 
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
@@ -122,6 +130,9 @@ let g:NERDDefaultAlign = 'left'				" Align line-wise comment delimiters flush le
 imap <C-_> <C-o><leader>c<Space>
 nmap <C-_> <leader>c<Space>
 vmap <C-_> <leader>c<Space>
+let g:NERDAltDelims_eruby = 1
+
+
 
 
 "/
@@ -175,6 +186,8 @@ inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 "/ fzf
 "/ 
 nnoremap <Leader><space> :FZF<CR>
+" let g:fzf_preview_window = 'right:40%'
+
 
 "/
 "/ dracula
@@ -189,33 +202,71 @@ nnoremap <Leader><space> :FZF<CR>
 "/
 "/ vim-startify
 "/ 
-"
-let g:startify_custom_indices = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l']
-let g:startify_custom_header = [] 
-let g:startify_session_sort = 1
-let g:startify_files_number = 5
-let g:startify_session_persistence = 1
+" let g:startify_custom_indices = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l']
+" let g:startify_custom_header = [] 
+" let g:startify_session_sort = 1
+" let g:startify_files_number = 5
+" let g:startify_session_persistence = 1
 
 " returns all modified files of the current git repo
 " `2>/dev/null` makes the command fail quietly, so that when we are not
 " in a git repo, the list will be empty
-function! s:gitModified()
-    let files = systemlist('git ls-files -m 2>/dev/null')
-    return map(files, "{'line': v:val, 'path': v:val}")
-endfunction
+" function! s:gitModified()
+"     let files = systemlist('git ls-files -m 2>/dev/null')
+"     return map(files, "{'line': v:val, 'path': v:val}")
+" endfunction
 
 " same as above, but show untracked files, honouring .gitignore
-function! s:gitUntracked()
-    let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
-    return map(files, "{'line': v:val, 'path': v:val}")
-	endfunction
-let g:startify_lists = [
-			\ { 'type': 'sessions',  'header': ['   Saved sessions'] },
-			\ { 'type': 'dir',       'header': ['   Recent files (cwd)'] },
-			\ { 'type': 'files',     'header': ['   Recent files (Global)']            },
-			\ { 'type': function('s:gitModified'),  'header': ['   git modified']},
-			\ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
-			\ ]
+" function! s:gitUntracked()
+"     let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
+"     return map(files, "{'line': v:val, 'path': v:val}")
+"   endfunction
+" let g:startify_lists = [
+"       \ { 'type': 'sessions',  'header': ['   Saved sessions'] },
+"       \ { 'type': 'dir',       'header': ['   Recent files (cwd)'] },
+"       \ { 'type': 'files',     'header': ['   Recent files (Global)']            },
+"       \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
+"       \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
+"       \ ]
+
+
+"/
+"/ emmet-vim
+"/ 
+let g:user_emmet_leader_key=','
+
+
+"/
+"/ vim-markdown
+"/
+let g:markdown_enable_conceal = 1
+let g:markdown_enable_spell_checking = 0
+
+
+"/
+"/ vim-vue
+"/
+let g:vue_disable_pre_processors=1
+
+let g:ft = ''
+function! NERDCommenter_before()
+  if &ft == 'vue'
+    let g:ft = 'vue'
+    let stack = synstack(line('.'), col('.'))
+    if len(stack) > 0
+      let syn = synIDattr((stack)[0], 'name')
+      if len(syn) > 0
+        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+      endif
+    endif
+  endif
+endfunction
+function! NERDCommenter_after()
+  if g:ft == 'vue'
+    setf vue
+    let g:ft = ''
+  endif
+endfunction
 
 "-------------Auto-Commands--------------"
 "Automatically source the Vimrc file on save.

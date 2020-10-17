@@ -17,17 +17,25 @@ call plug#begin()
 	" Plug 'kaisucode/vim-substitution'
 	Plug 'dracula/vim', { 'as': 'dracula' }
 	Plug 'jiangmiao/auto-pairs'
-	Plug 'mhinz/vim-startify'
-	Plug 'tpope/vim-surround'
+	" Plug 'mhinz/vim-startify'
 	Plug 'dhruvasagar/vim-table-mode'
 	Plug 'pbrisbin/vim-mkdir'
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-endwise'
+	Plug 'tpope/vim-rails'
+	Plug 'vim-ruby/vim-ruby'
 	Plug 'ap/vim-css-color'
 	Plug 'yuezk/vim-js'
 	Plug 'maxmellon/vim-jsx-pretty'
+	Plug 'posva/vim-vue'
 	Plug 'wlangstroth/vim-racket'
+	Plug 'gabrielelana/vim-markdown'
+	Plug 'chmp/mdnav'
 	Plug 'calviken/vim-gdscript3'
 	Plug 'sbdchd/neoformat'
+	Plug 'mattn/emmet-vim'
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 
